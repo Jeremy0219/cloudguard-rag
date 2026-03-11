@@ -1,0 +1,6 @@
+anthropic
+azure-search-documents==11.4.0
+sentence-transformers
+pypdf==4.2.0
+rich==13.7.1
+python-dotenv==1.0.1
