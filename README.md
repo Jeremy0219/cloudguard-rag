@@ -1,7 +1,7 @@
 # 🔐 CloudGuard RAG Assistant
 
-> An AI-powered Retrieval-Augmented Generation (RAG) pipeline for querying cloud security frameworks using Claude AI and Azure AI Search.
-
+> An AI‑powered system that uses RAG to search and answer questions about cloud security frameworks using Claude AI and Azure AI Search.
+> 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python)
 ![Claude](https://img.shields.io/badge/Anthropic-Claude-black?logo=anthropic)
 ![Azure AI Search](https://img.shields.io/badge/Azure-AI%20Search-0078D4?logo=microsoftazure)
@@ -12,11 +12,11 @@
 
 ## 📌 Overview
 
-CloudGuard is a command-line RAG assistant that ingests cloud security framework documents including the **Azure Security Benchmark**, **CIS Controls**, and **NIST SP 800-53** and answers natural language questions grounded in those documents.
+CloudGuard is a command-line RAG assistant that ingests cloud security framework documents including the **Azure Security Benchmark**, **CIS Controls**, and **NIST SP 800-53** and answers questions in plain language based on those documents.
 
-Instead of hallucinating generic security advice, CloudGuard retrieves the most relevant policy sections first, then generates precise, cited answers using Anthropic's Claude.
+Instead of hallucinating generic security advice, it first pulls the most relevant policy sections and then uses Claude to produce accurate, cited answers.
 
-> 💡 **Architecture note:** This project uses Anthropic Claude for LLM and local sentence-transformers for embeddings alongside Azure AI Search as the vector store — a deliberate multi-provider design. The pipeline is built to be swappable with Azure OpenAI when enterprise credentials are available, making it production-ready for Azure-native environments.
+> 💡 **Architecture note:** This project uses Claude as the LLM and local sentence‑transformer models for embeddings, with Azure AI Search serving as the vector store, intentionally designed to work across multiple providers. The pipeline can be easily switched to Azure OpenAI when enterprise access becomes available, making it ready for production in Azure‑native environments.
 
 **Example queries:**
 - *"What controls should I implement for privileged identity management in Azure?"*
@@ -75,7 +75,7 @@ Instead of hallucinating generic security advice, CloudGuard retrieves the most 
 - Python 3.10+
 - Anthropic API key — [get one here](https://console.anthropic.com/)
 - Azure subscription with:
-  - Azure AI Search resource (Free tier sufficient)
+  - Azure AI Search resource (Free tier good enough)
 - Git
 
 ---
@@ -189,7 +189,6 @@ cloudguard-rag/
 - [x] Source citation in responses
 - [ ] Web UI with Streamlit
 - [ ] Azure deployment (Container App)
-- [ ] Swap in Azure OpenAI when enterprise credentials available
 
 ---
 
