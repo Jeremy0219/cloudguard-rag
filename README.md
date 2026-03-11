@@ -6,19 +6,17 @@
 ![Claude](https://img.shields.io/badge/Anthropic-Claude-black?logo=anthropic)
 ![Azure AI Search](https://img.shields.io/badge/Azure-AI%20Search-0078D4?logo=microsoftazure)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![Status](https://img.shields.io/badge/Status-In%20Development-orange)
-
-> 🚧 **This project is actively under development.** Core pipeline and documentation are being built out — check the [Roadmap](#️-roadmap) for progress.
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
 ---
 
 ## 📌 Overview
 
-CloudGuard is a command-line RAG assistant that ingests cloud security framework documents — including the **Azure Security Benchmark**, **CIS Controls**, and **NIST SP 800-53** — and answers natural language questions grounded in those documents.
+CloudGuard is a command-line RAG assistant that ingests cloud security framework documents including the **Azure Security Benchmark**, **CIS Controls**, and **NIST SP 800-53** and answers natural language questions grounded in those documents.
 
 Instead of hallucinating generic security advice, CloudGuard retrieves the most relevant policy sections first, then generates precise, cited answers using Anthropic's Claude.
 
-> 💡 **Architecture note:** This project uses Anthropic Claude for LLM and embeddings alongside Azure AI Search as the vector store — a deliberate multi-provider design. The pipeline is built to be swappable with Azure OpenAI when enterprise credentials are available, making it production-ready for Azure-native environments.
+> 💡 **Architecture note:** This project uses Anthropic Claude for LLM and local sentence-transformers for embeddings alongside Azure AI Search as the vector store — a deliberate multi-provider design. The pipeline is built to be swappable with Azure OpenAI when enterprise credentials are available, making it production-ready for Azure-native environments.
 
 **Example queries:**
 - *"What controls should I implement for privileged identity management in Azure?"*
@@ -123,15 +121,20 @@ AZURE_SEARCH_API_KEY=your_key_here
 AZURE_SEARCH_INDEX_NAME=cloudguard-index
 ```
 
-### 5. Ingest documents
+### 5. Add documents
+
+Place PDF security framework documents in the `docs/` folder. Recommended:
+- [NIST SP 800-53 Rev 5](https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final)
+- [Azure Security Benchmark](https://learn.microsoft.com/en-us/azure/security/benchmarks/overview)
+- [CIS Controls v8](https://www.cisecurity.org/controls/v8)
+
+### 6. Ingest documents
 
 ```bash
 python ingest.py --docs ./docs/
 ```
 
-This will chunk, embed, and index all documents in the `docs/` folder into Azure AI Search.
-
-### 6. Run the assistant
+### 7. Run the assistant
 
 ```bash
 python main.py
@@ -141,28 +144,16 @@ python main.py
 
 ## 📁 Project Structure
 
-**Current:**
 ```
 cloudguard-rag/
-├── .env.example            # Environment variable template
-├── .gitignore
-├── LICENSE
-└── README.md
-```
-
-**Planned (in development):**
-```
-cloudguard-rag/
-├── docs/                   # Security framework documents (PDF/TXT)
-│   ├── azure-security-benchmark.pdf
-│   ├── cis-controls-v8.pdf
-│   └── nist-800-53.pdf
+├── docs/                   # Security framework documents (PDF)
 ├── src/
+│   ├── __init__.py
 │   ├── ingestor.py         # Document chunking + embedding + indexing
 │   ├── retriever.py        # Azure AI Search vector retrieval
-│   ├── generator.py        # Claude answer generation
-│   └── cli.py              # Rich CLI interface
+│   └── generator.py        # Claude answer generation
 ├── .env.example            # Environment variable template
+├── .gitignore
 ├── ingest.py               # Ingestion entrypoint
 ├── main.py                 # Query entrypoint
 ├── requirements.txt
@@ -187,15 +178,15 @@ cloudguard-rag/
 
 ## 📸 Demo
 
-*Screenshots and demo video coming soon*
+![Demo](docs/demo-screenshot.png)
 
 ---
 
 ## 🗺️ Roadmap
 
-- [ ] Core RAG pipeline (ingest + retrieve + generate)
-- [ ] Multi-document support
-- [ ] Source citation in responses
+- [x] Core RAG pipeline (ingest + retrieve + generate)
+- [x] Multi-document support
+- [x] Source citation in responses
 - [ ] Web UI with Streamlit
 - [ ] Azure deployment (Container App)
 - [ ] Swap in Azure OpenAI when enterprise credentials available
@@ -212,4 +203,4 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 **Jeremy Sanchez** — CS Student @ UTSA | Cybersecurity Concentration | CompTIA Security+ | AZ-900  
 Internship: IT @ Caterpillar Inc.  
-[LinkedIn](https://linkedin.com/in/jeremy-sanchez-004073339/) · [GitHub](https://github.com/Jeremy0219)
+[LinkedIn](https://linkedin.com/in/YOUR_PROFILE) · [GitHub](https://github.com/Jeremy0219)
