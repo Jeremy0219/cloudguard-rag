@@ -7,6 +7,8 @@
 ![Azure AI Search](https://img.shields.io/badge/Azure-AI%20Search-0078D4?logo=microsoftazure)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
+> 🚧 **This project is actively under development.** Core pipeline and documentation are being built out — check the [Roadmap](#️-roadmap) for progress.
+
 ---
 
 ## 📌 Overview
@@ -201,4 +203,4 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 **Jeremy** — CS Student @ UTSA | Cybersecurity Concentration | CompTIA Security+ | AZ-900  
 Internship: IT @ Caterpillar Inc.  
-[LinkedIn](https://linkedin.com/in/YOUR_PROFILE) · [GitHub](https://github.com/YOUR_USERNAME)
+[LinkedIn](https://www.linkedin.com/in/jeremy-sanchez-004073339/) · [GitHub](https://github.com/Jeremy0219)
