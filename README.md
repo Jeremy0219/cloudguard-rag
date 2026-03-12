@@ -218,4 +218,4 @@ MIT License: see [LICENSE](LICENSE) for details.
 
 **Jeremy Sanchez** — CS Student @ UTSA | Cybersecurity Concentration | CompTIA Security+ | AZ-900  
 Internship: IT @ Caterpillar Inc.  
-[LinkedIn](https://linkedin.com/in/YOUR_PROFILE) · [GitHub](https://github.com/Jeremy0219)
+[LinkedIn](https://www.linkedin.com/in/jeremy-sanchez-004073339/) · [GitHub](https://github.com/Jeremy0219)
