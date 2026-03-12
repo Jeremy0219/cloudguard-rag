@@ -178,7 +178,17 @@ cloudguard-rag/
 
 ## 📸 Demo
 
-![Demo](docs/demo-screenshot.png)
+### Ingestion Pipeline — 3,737 NIST 800-53 chunks indexed into Azure AI Search
+![Ingestion](screenshots/run_the_ingestion_pipeline.png)
+
+### Demo — Multi-Factor Authentication Requirements
+![MFA Demo](screenshots/mfa_demo.png)
+
+### Demo — Least Privilege Principle
+![Least Privilege](screenshots/demo_of_good_prompts.png)
+
+### Azure AI Search — Deployed
+![Azure Setup](screenshots/ai_search_resource_deployed.png)
 
 ---
 
