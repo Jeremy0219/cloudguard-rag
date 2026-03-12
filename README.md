@@ -12,11 +12,11 @@
 
 ## 📌 Overview
 
-CloudGuard is a command-line RAG assistant that ingests cloud security framework documents including the **Azure Security Benchmark**, **CIS Controls**, and **NIST SP 800-53** and answers questions in plain language based on those documents.
+CloudGuard is a command-line RAG assistant that reads cloud security framework documents like the **Azure Security Benchmark**, **CIS Critical Security Controls**, and **NIST SP 800-53**, and answers questions using information from those documents.
 
-Instead of hallucinating generic security advice, it first pulls the most relevant policy sections and then uses Claude to produce accurate, cited answers.
+Instead of just giving generic security advice, the program first finds the most relevant sections from the documents and then uses Claude to generate an answer based on that information. This helps make the responses more accurate and tied to the actual frameworks.
 
-> 💡 **Architecture note:** This project uses Claude as the LLM and local sentence‑transformer models for embeddings, with Azure AI Search serving as the vector store, intentionally designed to work across multiple providers. The pipeline can be easily switched to Azure OpenAI when enterprise access becomes available, making it ready for production in Azure‑native environments.
+> 💡 **Architecture note:** This project uses Claude as the language model and local sentence-transformer models to create embeddings. The embeddings are stored in Azure AI Search, which acts as the vector database. The setup was designed so it can work with different providers. If needed, the system could also be switched to Azure OpenAI Service later, which would make it easier to run in an Azure-focused production environment.
 
 **Example queries:**
 - *"What controls should I implement for privileged identity management in Azure?"*
@@ -29,18 +29,18 @@ Instead of hallucinating generic security advice, it first pulls the most releva
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│                   User CLI Query                     │
+│                   User CLI Query                    │
 └──────────────────────────┬──────────────────────────┘
                            │
                            ▼
 ┌─────────────────────────────────────────────────────┐
-│         sentence-transformers (local embeddings)     │
-│              Embed the user's question               │
+│         sentence-transformers (local embeddings)    │
+│              Embed the user's question              │
 └──────────────────────────┬──────────────────────────┘
                            │
                            ▼
 ┌─────────────────────────────────────────────────────┐
-│                 Azure AI Search                      │
+│                   Azure AI Search                   │
 │        Vector search over indexed doc chunks        │
 └──────────────────────────┬──────────────────────────┘
                            │
@@ -48,13 +48,13 @@ Instead of hallucinating generic security advice, it first pulls the most releva
                            │
                            ▼
 ┌─────────────────────────────────────────────────────┐
-│           Anthropic Claude (claude-sonnet-4-6)      │
-│   Generate grounded answer from retrieved context   │
+│         Anthropic Claude (claude-sonnet-4-6)        │
+│   Generate an answer using the retrieved context    │
 └──────────────────────────┬──────────────────────────┘
                            │
                            ▼
 ┌─────────────────────────────────────────────────────┐
-│          Rich CLI Output with source citations       │
+│          Rich CLI Output with source citations      │
 └─────────────────────────────────────────────────────┘
 ```
 
@@ -62,11 +62,11 @@ Instead of hallucinating generic security advice, it first pulls the most releva
 
 ## 🚀 Features
 
-- **Document ingestion pipeline** — Automatically chunks and indexes PDF/text security frameworks
-- **Vector search** — Semantic retrieval via Azure AI Search with cosine similarity
-- **Grounded answers** — Claude generates responses strictly from retrieved context, with source citations
-- **Multi-framework support** — Ingest multiple security docs and query across all of them
-- **Rich CLI** — Clean, color-coded terminal output with source attribution
+- **Document ingestion pipeline** — Automatically splits and indexes PDF or text security framework documents
+- **Vector search** — Uses Azure AI Search to find the most relevant sections using semantic similarity
+- **Grounded answers** — Claude generates answers based only on the retrieved content and includes source citations
+- **Multi-framework support** — Allows multiple security frameworks to be added and searched at the same time
+- **Rich CLI** — Simple command-line output with color formatting and source references for each answer
 
 ---
 
@@ -147,15 +147,16 @@ python main.py
 ```
 cloudguard-rag/
 ├── docs/                   # Security framework documents (PDF)
+├── screenshots/            # Demo screenshots
 ├── src/
 │   ├── __init__.py
-│   ├── ingestor.py         # Document chunking + embedding + indexing
-│   ├── retriever.py        # Azure AI Search vector retrieval
-│   └── generator.py        # Claude answer generation
-├── .env.example            # Environment variable template
+│   ├── ingestor.py         # Handles splitting documents, creating embeddings, and indexing
+│   ├── retriever.py        # Retrieves relevant document chunks using Azure AI Search
+│   └── generator.py        # Uses Claude to generate answers from the retrieved context
+├── .env.example            # Example environment variable configuration
 ├── .gitignore
-├── ingest.py               # Ingestion entrypoint
-├── main.py                 # Query entrypoint
+├── ingest.py               # Script used to ingest and index documents
+├── main.py                 # Main script for running queries
 ├── requirements.txt
 └── README.md
 ```
@@ -168,7 +169,7 @@ cloudguard-rag/
 |---|---|
 | Language | Python 3.10+ |
 | LLM | Anthropic Claude (claude-sonnet-4-6) |
-| Embeddings | sentence-transformers (local) |
+| Embeddings | Sentence-transformers (local) |
 | Vector Store | Azure AI Search |
 | PDF Parsing | pypdf |
 | CLI UI | rich |
@@ -178,8 +179,14 @@ cloudguard-rag/
 
 ## 📸 Demo
 
+### Azure AI Search — Deployed
+![Azure Setup](screenshots/ai_search_resource_deployed.png)
+
 ### Ingestion Pipeline — 3,737 NIST 800-53 chunks indexed into Azure AI Search
 ![Ingestion](screenshots/run_the_ingestion_pipeline.png)
+
+### Demo - Running CloudGuard - First Query
+![Demo Main](screenshots/demo_main.png)
 
 ### Demo — Multi-Factor Authentication Requirements
 ![MFA Demo](screenshots/mfa_demo.png)
@@ -187,8 +194,7 @@ cloudguard-rag/
 ### Demo — Least Privilege Principle
 ![Least Privilege](screenshots/demo_of_good_prompts.png)
 
-### Azure AI Search — Deployed
-![Azure Setup](screenshots/ai_search_resource_deployed.png)
+
 
 ---
 
